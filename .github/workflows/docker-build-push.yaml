@@ -1,0 +1,29 @@
+name: Docker Build and Push
+
+on:
+  workflow_dispatch:  
+
+env:
+  REGISTRY: githubactionsiti2025.azurecr.io
+  IMAGE_NAME: githubactionsiti2025/nginx-github-actions
+  TAG: latest
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Docker Build
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} .
+
+      - name: Docker Login to ACR
+        run: |
+          echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ env.REGISTRY }} -u "${{ secrets.ACR_USERNAME }}" --password-stdin
+
+      - name: Docker Push to ACR
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}

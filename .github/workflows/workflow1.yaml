@@ -1,0 +1,36 @@
+name: Learn GitHub Actions Steps
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  step_one:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Welcome
+        run: echo "Hello from Step One!"
+
+      - name: Install cowsay
+        run: |
+          sudo apt update -y
+          sudo apt install cowsay -y
+          cowsay -f dragon "Run for cover, I am a DRAGON....RAWR" >> dragon.txt
+          cat dragon.txt
+
+  step_two:
+    needs: step_one
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Show README + script
+        run: |
+          ls -l
+          cat README.md || echo "README.md not found"
+          chmod +x ./script.sh
+          ./script.sh
