@@ -51,14 +51,17 @@ To ensure the workflows run successfully, you need to add the following secrets 
 -----
 
 ## Some Screenshots
+![Workflows screen](Docs/2-workflows.png)
 
-## 📦 Docker Output
+---
+
+## Docker Output
 
 This project builds a Docker image that serves a static HTML page. Once the container is pulled and run, you can view the deployed content by opening your browser to the specified address.
 
 -----
 
-## ✅ To Run Locally
+## To Run Locally
 
 To build and run the Docker image on your local machine, follow these steps:
 
